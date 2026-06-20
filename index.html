@@ -2,101 +2,377 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RutaMóvil Rural</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background-color:#f4f6f8;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero{
+            background: linear-gradient(rgba(25,135,84,0.8), rgba(25,135,84,0.8)),
+            url("FOTO.jpg");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .card{
+            transition: 0.3s;
+        }
+
+        .card:hover{
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        aside{
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        footer{
+            background-color: #b3e8cf;
+            color: rgb(239, 234, 234);
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        iframe{
+            width: 100%;
+            height: 315px;
+        }
+
+        @media(max-width:768px){
+
+            .hero{
+                padding: 60px 15px;
+            }
+
+            h1{
+                font-size: 2rem;
+            }
+
+            iframe{
+                height: 220px;
+            }
+        }
+    </style>
 </head>
 
-<body style="background-color: rgb(182, 191, 198);">
+<body>
 
-<header>
-    <h1>RutaMóvil Rural</h1>
+    <!-- HEADER -->
+    <header>
 
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#quienes-somos">Quiénes Somos</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-</header>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container">
 
-<main>
+                <a class="navbar-brand fw-bold" href="#">
+                    RutaMóvil Rural
+                </a>
 
-    <section id="inicio">
-        <h2>Inicio</h2>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#inicio">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#quienes-somos">Quiénes Somos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicios">Servicios</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">Contacto</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <!-- INICIO -->
+        <section id="inicio" class="hero">
+
+            <h1>Bienvenidos a RutaMóvil Rural</h1>
+
+            <p class="lead">
+                Facilitamos el acceso al transporte en comunidades rurales de manera rápida y segura.
+            </p>
+
+            <a href="#servicios" class="btn btn-light btn-lg mt-3">
+                Ver Servicios
+            </a>
+
+        </section>
+
+        <!-- QUIENES SOMOS -->
+        <section id="quienes-somos" class="container my-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+
+                    <img src="FOTO.jpg"
+                         alt="RutaMóvil Rural"
+                         class="img-fluid rounded shadow">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h2 class="text-success">
+                        Quiénes Somos
+                    </h2>
+
+                    <p>
+                        RutaMóvil Rural es un proyecto tecnológico enfocado en mejorar la movilidad en zonas rurales donde el acceso al transporte suele ser limitado o desorganizado.
+                    </p>
+
+                    <p>
+                        Nuestra plataforma conecta a usuarios, conductores y comunidades para ofrecer información actualizada sobre rutas, horarios y transporte disponible.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- SERVICIOS -->
+        <section id="servicios" class="container my-5">
+
+            <h2 class="text-center text-success mb-4">
+                Nuestros Servicios
+            </h2>
+
+            <div class="row">
+
+                <article class="col-md-3 mb-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="card-title">
+                                Consulta de Rutas
+                            </h5>
+
+                            <p>
+                                Información detallada de rutas rurales disponibles.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="col-md-3 mb-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="card-title">
+                                Horarios Actualizados
+                            </h5>
+
+                            <p>
+                                Consulta horarios de buses en tiempo real.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="col-md-3 mb-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="card-title">
+                                Taxis Rurales
+                            </h5>
+
+                            <p>
+                                Solicita transporte seguro y confiable.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="col-md-3 mb-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="card-title">
+                                Paradas Cercanas
+                            </h5>
+
+                            <p>
+                                Ubica rápidamente las paradas disponibles.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="container my-5">
+
+            <h2 class="text-center text-success mb-4">
+                Contáctanos
+            </h2>
+
+            <form>
+
+                <div class="mb-3">
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Nombre completo">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <input type="email"
+                           class="form-control"
+                           placeholder="Correo electrónico">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Asunto">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <textarea class="form-control"
+                              rows="5"
+                              placeholder="Escriba su mensaje"></textarea>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Enviar Mensaje
+                </button>
+
+            </form>
+
+            <div class="mt-4">
+
+                <a href="mailto:rutamovilrural@gmail.com"
+                   class="btn btn-primary m-1">
+                    Correo
+                </a>
+
+                <a href="#"
+                   class="btn btn-info text-white m-1">
+                    Facebook
+                </a>
+
+                <a href="#"
+                   class="btn btn-danger m-1">
+                    Instagram
+                </a>
+
+                <a href="#"
+                   class="btn btn-success m-1">
+                    WhatsApp
+                </a>
+
+            </div>
+
+            <div class="mt-4">
+
+                <iframe
+                    src="https://www.youtube.com/embed/-3Yb0OcZN60"
+                    title="Video RutaMóvil Rural"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ASIDE -->
+    <aside class="container my-5">
+
+        <h3 class="text-success">
+            Información Adicional
+        </h3>
+
         <p>
-            Bienvenidos a RutaMóvil Rural, una plataforma digital creada para facilitar
-            el acceso al transporte en comunidades rurales. Permite consultar rutas,
-            horarios y solicitar servicios de transporte de forma rápida y segura.
-        </p>
-    </section>
-
-    <section id="quienes-somos">
-        <h2>Quiénes Somos</h2>
-
-        <p>
-            RutaMóvil Rural es un proyecto tecnológico enfocado en mejorar la movilidad
-            en zonas rurales donde el acceso al transporte suele ser limitado o desorganizado.
-            Esta plataforma busca conectar a los usuarios con servicios de buses y taxis rurales
-            de manera eficiente, reduciendo tiempos de espera y mejorando la comunicación entre
-            conductores y pasajeros. Nuestro objetivo es brindar una solución accesible,
-            sencilla y confiable que contribuya al desarrollo de las comunidades rurales
-            mediante el uso de herramientas digitales modernas.
+            Atención al usuario de lunes a sábado de 7h00 a 19h00.
+            Próximamente se integrarán alertas de rutas en tiempo real y promociones para usuarios frecuentes.
         </p>
 
-        <img src="FOTO.jpg" width="300" height="200">
-    </section>
+    </aside>
 
-    <section id="servicios">
-        <h2>Servicios</h2>
+    <!-- FOOTER -->
+    <footer>
 
-        <ul>
-            <li>Consulta de rutas rurales</li>
-            <li>Horarios de buses actualizados</li>
-            <li>Solicitud de taxis rurales</li>
-            <li>Información de paradas cercanas</li>
-        </ul>
-    </section>
+        <p><strong>Estudiante:</strong> Lady Andrea Alejandro Alejandro</p>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
+        <p><strong>Asignatura:</strong> Desarrollo de Aplicaciones Web</p>
 
-        <p>Email: rutamovilrural@gmail.com</p>
-        <p>Teléfono: +593 99 358 4819</p>
-        <p>Dirección: Sucumbios, Ecuador</p>
+        <p><strong>Año:</strong> 2026</p>
 
-        <p>
-            Redes sociales:
-            <a href="#">Facebook</a> |
-            <a href="#">Instagram</a> |
-            <a href="#">WhatsApp</a>
-        </p>
+    </footer>
 
-        <iframe width="560" height="315"
-src="https://www.youtube.com/embed/-3Yb0OcZN60"
-title="YouTube video player"
-frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-allowfullscreen>
-</iframe>
-    </section>
-
-</main>
-
-<aside>
-    <h3>Información adicional</h3>
-    <p>
-        Atención al usuario de lunes a sábado de 7h00 a 19h00.
-        Próximamente se integrarán alertas de rutas en tiempo real y promociones
-        para usuarios frecuentes.
-    </p>
-</aside>
-
-<footer>
-    <p>Estudiante: Lady Andrea Alejandro Alejandro</p>
-    <p>Asignatura: Desarrollo Web</p>
-    <p>Año: 2026</p>
-</footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+```
