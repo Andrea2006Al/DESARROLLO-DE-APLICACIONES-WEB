@@ -40,7 +40,7 @@
         }
 
         footer{
-            background-color: #b3e8cf;
+            background-color: #54aa82;
             color: rgb(239, 234, 234);
             text-align: center;
             padding: 20px;
@@ -266,34 +266,35 @@
 
         <div class="mb-3">
             <label class="form-label">Nombre del servicio</label>
-            <input
-                type="text"
-                class="form-control"
-                id="nombre">
+             <input type="text" id="nombre" class="form-control">
+        <div class="invalid-feedback">
+    El nombre debe tener al menos 3 caracteres.
+</div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descripción</label>
-            <textarea
-                class="form-control"
-                id="descripcion">
+            <textarea id="descripcion" class="form-control">
             </textarea>
+            <div class="invalid-feedback">
+            La descripción debe tener al menos 10 caracteres.
+            </div>
         </div>
 
         <div class="mb-3">
 
             <label class="form-label">Tipo de transporte</label>
 
-            <select
-                class="form-select"
-                id="categoria">
-
-                <option value="">Seleccione...</option>
+            <select id="categoria" class="form-select">
+                <option value="">Seleccione una categoría</option>
                 <option>Bus</option>
                 <option>Taxi</option>
                 <option>Mototaxi</option>
 
             </select>
+            <div class="invalid-feedback">
+             Debe seleccionar una categoría.
+            </div>
 
         </div>
 
