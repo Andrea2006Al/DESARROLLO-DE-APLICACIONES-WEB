@@ -8,9 +8,27 @@ const nombre = document.getElementById("nombre");
 const descripcion = document.getElementById("descripcion");
 const categoria = document.getElementById("categoria");
 
-let total = 0;
+// Arreglo donde se almacenan los servicios
+let servicios = [
 
-// Validar nombre
+    {
+        nombre: "Ruta Nueva Loja - Comunidades",
+        descripcion: "Servicio de transporte para conectar comunidades rurales.",
+        categoria: "Bus"
+    },
+
+    {
+        nombre: "Taxi Rural Seguro",
+        descripcion: "Transporte bajo solicitud para usuarios de zonas rurales.",
+        categoria: "Taxi"
+    }
+
+];
+
+// ======================
+// VALIDACIONES
+// ======================
+
 function validarNombre() {
     if (nombre.value.trim().length < 4) {
         nombre.classList.add("is-invalid");
@@ -23,7 +41,6 @@ function validarNombre() {
     return true;
 }
 
-// Validar descripción
 function validarDescripcion() {
     if (descripcion.value.trim().length < 10) {
         descripcion.classList.add("is-invalid");
@@ -36,7 +53,6 @@ function validarDescripcion() {
     return true;
 }
 
-// Validar categoría
 function validarCategoria() {
     if (categoria.value === "") {
         categoria.classList.add("is-invalid");
@@ -49,17 +65,71 @@ function validarCategoria() {
     return true;
 }
 
-// Eventos en tiempo real
+// Eventos de validación
 nombre.addEventListener("input", validarNombre);
-nombre.addEventListener("blur", validarNombre);
-
 descripcion.addEventListener("input", validarDescripcion);
-descripcion.addEventListener("blur", validarDescripcion);
-
 categoria.addEventListener("change", validarCategoria);
-categoria.addEventListener("blur", validarCategoria);
 
-// Envío del formulario
+// ======================
+// MOSTRAR SERVICIOS
+// ======================
+
+function mostrarServicios() {
+
+    lista.innerHTML = "";
+
+    //
+    if (servicios.length === 0 ) {
+
+        lista.innerHTML = `
+            <div class="alert alert-warning">
+                No existen servicios registrados.
+            </div>
+        `;
+
+        contador.textContent = 0;
+        return;
+    }
+
+    // Estructura repetitiva 
+    servicios.forEach((servicio, index) => {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "card p-3 mb-3 shadow";
+
+        tarjeta.innerHTML = `
+            <h5>${servicio.nombre}</h5>
+
+            <p>${servicio.descripcion}</p>
+
+            <span class="badge bg-primary mb-3">
+                ${servicio.categoria}
+            </span>
+
+            <button class="btn btn-danger">
+                Eliminar
+            </button>
+        `;
+
+        tarjeta.querySelector("button").addEventListener("click", function () {
+
+            servicios.splice(index, 1);
+
+            mostrarServicios();
+
+        });
+
+        lista.appendChild(tarjeta);
+
+    });
+
+    contador.textContent = servicios.length;
+
+}
+
+// REGISTRAR SERVICIO
+
 formulario.addEventListener("submit", function (e) {
 
     e.preventDefault();
@@ -71,56 +141,39 @@ formulario.addEventListener("submit", function (e) {
     if (!nombreValido || !descripcionValida || !categoriaValida) {
 
         mensaje.innerHTML = `
-        <div class="alert alert-danger">
-            Corrija los errores antes de registrar.
-        </div>
+            <div class="alert alert-danger">
+                Corrija los errores antes de registrar.
+            </div>
         `;
 
         return;
     }
 
-    mensaje.innerHTML = `
-    <div class="alert alert-success">
-        Registro agregado correctamente.
-    </div>
-    `;
+    servicios.push({
 
-    const tarjeta = document.createElement("div");
+        nombre: nombre.value,
 
-    tarjeta.className = "card p-3 mb-3 shadow";
+        descripcion: descripcion.value,
 
-    tarjeta.innerHTML = `
-        <h5>${nombre.value}</h5>
+        categoria: categoria.value
 
-        <p>${descripcion.value}</p>
-
-        <span class="badge bg-primary mb-3">
-            ${categoria.value}
-        </span>
-
-        <button class="btn btn-danger">
-            Eliminar
-        </button>
-    `;
-
-    tarjeta.querySelector("button").addEventListener("click", function () {
-
-        tarjeta.remove();
-
-        total--;
-
-        contador.textContent = total;
     });
 
-    lista.appendChild(tarjeta);
+    mensaje.innerHTML = `
+        <div class="alert alert-success">
+            Registro agregado correctamente.
+        </div>
+    `;
 
-    total++;
-
-    contador.textContent = total;
+    mostrarServicios();
 
     formulario.reset();
 
     nombre.classList.remove("is-valid");
     descripcion.classList.remove("is-valid");
     categoria.classList.remove("is-valid");
+
 });
+
+// Mostrar mensaje al cargar la página
+mostrarServicios();

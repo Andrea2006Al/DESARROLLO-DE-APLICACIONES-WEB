@@ -8,73 +8,14 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body{
-            background-color:#f4f6f8;
-            font-family: Arial, sans-serif;
-        }
 
-        .hero{
-            background: linear-gradient(rgba(25,135,84,0.8), rgba(25,135,84,0.8)),
-            url("FOTO.jpg");
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .card{
-            transition: 0.3s;
-        }
-
-        .card:hover{
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(34, 32, 32, 0.2);
-        }
-
-        aside{
-            background-color: #e9ecef;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        footer{
-            background-color: #54aa82;
-            color: rgb(239, 234, 234);
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-        }
-
-        iframe{
-            width: 100%;
-            height: 315px;
-        }
-
-        @media(max-width:768px){
-
-            .hero{
-                padding: 60px 15px;
-            }
-
-            h1{
-                font-size: 2rem;
-            }
-
-            iframe{
-                height: 220px;
-            }
-        }
-    </style>
 </head>
-
 <body>
 
-    <!-- HEADER -->
+  <!-- Esta parte posteriormente será incluida en base.html como encabezado -->
     <header>
 
-        <!-- NAVBAR -->
+        <!--  Menú de navegación que posteriormente será una plantilla independiente -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
             <div class="container">
 
@@ -115,9 +56,9 @@
         </nav>
 
     </header>
+<!-- CONTENIDO DINÁMICO: Esta sección posteriormente recibirá información desde Flask mediante plantillas -->
 
     <main>
-
         <!-- INICIO -->
         <section id="inicio" class="hero">
 
@@ -427,7 +368,7 @@
 
     </aside>
 
-    <!-- FOOTER -->
+   <!-- FOOTER REUTILIZABLE: Esta sección posteriormente será una plantilla de pie de página -->
     <footer>
 
         <p><strong>Estudiante:</strong> Lady Andrea Alejandro Alejandro</p>
