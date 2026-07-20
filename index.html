@@ -60,7 +60,8 @@
 
     <main>
         <!-- INICIO -->
-        <section id="inicio" class="hero">
+        <section id="inicio" class="hero text-center py-5">
+            <div class="container">
 
             <h1>Bienvenidos a RutaMóvil Rural</h1>
 
@@ -71,7 +72,7 @@
             <a href="#servicios" class="btn btn-light btn-lg mt-3">
                 Ver Servicios
             </a>
-
+            </div>
         </section>
 
         <!-- QUIENES SOMOS -->
@@ -100,7 +101,14 @@
                     <p>
                         Nuestra plataforma conecta a usuarios, conductores y comunidades para ofrecer información actualizada sobre rutas, horarios y transporte disponible.
                     </p>
+                    <button
+                       class="btn btn-outline-success mt-3"
+                      data-bs-toggle="modal"
+                       data-bs-target="#modalInfo">
 
+                    Más información
+
+                    </button>
                 </div>
 
             </div>
@@ -240,32 +248,44 @@
         </div>
 
         <button
-            class="btn btn-success"
+            class="btn btn-success btn-lg"
             type="submit">
 
             Registrar
 
         </button>
+        <!-- Spinner -->
+    <div id="spinnerCarga"
+     class="spinner-border text-success mt-3 d-none"
+     role="status">
+
+    <span class="visually-hidden">
+        Cargando...
+    </span>
+
+    </div>
 
     </form>
 
-    <div
-        id="mensaje"
-        class="mt-3">
-    </div>
-
-    <h4 class="mt-4">
-
-        Total registrados:
-        <span id="contador">0</span>
-
-    </h4>
+    <!-- Alerta -->
+    <div id="mensaje" class="mt-3"></div>
 
     <div
-        id="listaServicios"
-        class="mt-4">
-
+    id="alertaBootstrap"
+    class="alert alert-success mt-3 d-none"
+    role="alert">
     </div>
+
+<h4 class="mt-4">
+
+    Total registrados:
+    <span id="contador">0</span>
+
+</h4>
+
+<div id="listaServicios" class="mt-4">
+
+</div>
 
 </section>
         <!-- CONTACTO -->
@@ -367,7 +387,61 @@
         </p>
 
     </aside>
+</aside>
 
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+
+                <h5 class="modal-title" id="modalInfoLabel">
+                    Acerca de RutaMóvil Rural
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p><strong>RutaMóvil Rural</strong> es una aplicación desarrollada para mejorar el acceso al transporte en comunidades rurales.</p>
+
+                <ul>
+                    <li>Consultar rutas disponibles.</li>
+                    <li>Conocer horarios actualizados.</li>
+                    <li>Solicitar transporte.</li>
+                    <li>Encontrar servicios de buses, taxis y mototaxis.</li>
+                </ul>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-success"
+                        data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <p><strong>Estudiante:</strong> Lady Andrea Alejandro Alejandro</p>
    <!-- FOOTER REUTILIZABLE: Esta sección posteriormente será una plantilla de pie de página -->
     <footer>
 
@@ -375,7 +449,7 @@
 
         <p><strong>Asignatura:</strong> Desarrollo de Aplicaciones Web</p>
 
-        <p><strong>Año:</strong> 2026</p>
+        <p><strong>Año:</strong>2026</p>
 
     </footer>
 

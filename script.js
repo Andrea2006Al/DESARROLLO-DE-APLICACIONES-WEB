@@ -2,7 +2,7 @@ const formulario = document.getElementById("formRegistro");
 
 const lista = document.getElementById("listaServicios");
 const mensaje = document.getElementById("mensaje");
-const contador = document.getElementById("contador");
+const spinner = document.getElementById("spinnerCarga");
 
 const nombre = document.getElementById("nombre");
 const descripcion = document.getElementById("descripcion");
@@ -134,6 +134,8 @@ formulario.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
+    spinner.classList.remove("d-none");
+
     const nombreValido = validarNombre();
     const descripcionValida = validarDescripcion();
     const categoriaValida = validarCategoria();
@@ -145,9 +147,11 @@ formulario.addEventListener("submit", function (e) {
                 Corrija los errores antes de registrar.
             </div>
         `;
-
+        spinner.classList.add("d-none");
         return;
     }
+
+   setTimeout(function () {
 
     servicios.push({
 
@@ -158,6 +162,8 @@ formulario.addEventListener("submit", function (e) {
         categoria: categoria.value
 
     });
+
+    spinner.classList.add("d-none");
 
     mensaje.innerHTML = `
         <div class="alert alert-success">
@@ -172,6 +178,8 @@ formulario.addEventListener("submit", function (e) {
     nombre.classList.remove("is-valid");
     descripcion.classList.remove("is-valid");
     categoria.classList.remove("is-valid");
+
+}, 1500);
 
 });
 
