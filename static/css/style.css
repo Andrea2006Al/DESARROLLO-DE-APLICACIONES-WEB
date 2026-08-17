@@ -4,8 +4,8 @@ body{
 }
 
 .hero{
-    background: linear-gradient(rgba(25,135,84,0.8), rgba(25,135,84,0.8)),
-    url("FOTO.jpg");
+        background: linear-gradient(rgba(25,135,84,0.8), rgba(25,135,84,0.8)),
+    url("../img/FOTO.jpg");
     background-size: cover;
     background-position: center;
     color: white;

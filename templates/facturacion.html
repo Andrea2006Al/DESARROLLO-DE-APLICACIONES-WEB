@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Facturación - RutaMóvil Rural{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-success mb-4">Facturación</h1>
+
+    <div class="alert alert-success">
+        Registro de facturas de ejemplo de los servicios de transporte.
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-success">
+            <tr>
+                <th>N.º Factura</th>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>001-001-000001</td>
+                <td>María López</td>
+                <td>Taxi rural</td>
+                <td>$5.00</td>
+            </tr>
+
+            <tr>
+                <td>001-001-000002</td>
+                <td>Juan Pérez</td>
+                <td>Bus rural</td>
+                <td>$2.50</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

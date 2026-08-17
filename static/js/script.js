@@ -3,6 +3,7 @@ const formulario = document.getElementById("formRegistro");
 const lista = document.getElementById("listaServicios");
 const mensaje = document.getElementById("mensaje");
 const spinner = document.getElementById("spinnerCarga");
+const contador = document.getElementById("contador");
 
 const nombre = document.getElementById("nombre");
 const descripcion = document.getElementById("descripcion");
