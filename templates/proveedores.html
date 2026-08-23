@@ -5,35 +5,53 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="text-success mb-4">Proveedores de transporte</h1>
+
+    <h1 class="text-success mb-4">
+        Proveedores de transporte
+    </h1>
 
     <div class="row">
 
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Cooperativa de Transporte Rural</h5>
-                    <p class="card-text">
-                        Proveedor de servicios de buses para las comunidades rurales.
-                    </p>
-                    <span class="badge bg-primary">Proveedor activo</span>
-                </div>
-            </div>
-        </div>
+        {% for proveedor in proveedores %}
 
         <div class="col-md-6 mb-4">
+
             <div class="card h-100 shadow-sm">
+
                 <div class="card-body">
-                    <h5 class="card-title">Servicio de Taxi Rural</h5>
+
+                    <h5 class="card-title">
+                        {{ proveedor.nombre }}
+                    </h5>
+
                     <p class="card-text">
-                        Proveedor de transporte personalizado para los usuarios.
+                        {{ proveedor.descripcion }}
                     </p>
-                    <span class="badge bg-primary">Proveedor activo</span>
+
+                    {% if proveedor.estado == "Activo" %}
+
+                        <span class="badge bg-primary">
+                            Proveedor activo
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-secondary">
+                            Proveedor inactivo
+                        </span>
+
+                    {% endif %}
+
                 </div>
+
             </div>
+
         </div>
+
+        {% endfor %}
 
     </div>
+
 </div>
 
 {% endblock %}

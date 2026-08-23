@@ -5,35 +5,53 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="text-success mb-4">Clientes</h1>
+
+    <h1 class="text-success mb-4">
+        Clientes
+    </h1>
 
     <div class="alert alert-info">
         Registro de usuarios de RutaMóvil Rural.
     </div>
 
     <table class="table table-bordered table-striped">
+
         <thead class="table-success">
+
             <tr>
                 <th>Nombre</th>
                 <th>Teléfono</th>
                 <th>Comunidad</th>
             </tr>
+
         </thead>
 
         <tbody>
-            <tr>
-                <td>María López</td>
-                <td>0991234567</td>
-                <td>Nueva Loja</td>
-            </tr>
+
+            {% for cliente in clientes %}
 
             <tr>
-                <td>Juan Pérez</td>
-                <td>0987654321</td>
-                <td>El Eno</td>
+
+                <td>
+                    {{ cliente.nombre }}
+                </td>
+
+                <td>
+                    {{ cliente.telefono }}
+                </td>
+
+                <td>
+                    {{ cliente.comunidad }}
+                </td>
+
             </tr>
+
+            {% endfor %}
+
         </tbody>
+
     </table>
+
 </div>
 
 {% endblock %}
