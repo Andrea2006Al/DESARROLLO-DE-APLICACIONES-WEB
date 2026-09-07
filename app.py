@@ -1,13 +1,47 @@
+import os
+import sqlite3
+
 from flask import Flask, render_template
 from forms import ProductoForm, ClienteForm, ProveedorForm, FacturacionForm
+
 
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "clave-secreta"
 
 
+# Ubicación de la base de datos
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DATABASE = os.path.join(DATA_DIR, "ferreteria.db")
+
+
+# Crear la base de datos y la tabla de productos
+def crear_base_datos():
+
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS productos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            precio REAL NOT NULL,
+            cantidad INTEGER NOT NULL
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+
+# Página de inicio
 @app.route("/")
 def inicio():
+
     nombre_sistema = "Ruta Móvil"
 
     return render_template(
@@ -16,57 +50,62 @@ def inicio():
     )
 
 
+# Productos
 @app.route("/productos", methods=["GET", "POST"])
 def productos():
 
     form = ProductoForm()
 
-    servicios = [
-        {
-            "nombre": "Bus rural",
-            "descripcion": "Servicio de transporte para las comunidades rurales.",
-            "disponible": True
-        },
-        {
-            "nombre": "Taxi",
-            "descripcion": "Transporte personalizado para los usuarios.",
-            "disponible": True
-        },
-        {
-            "nombre": "Mototaxi",
-            "descripcion": "Transporte rápido para zonas rurales.",
-            "disponible": True
-        }
-    ]
-
+    # Guardar producto en SQLite
     if form.validate_on_submit():
 
-        nuevo_servicio = {
-            "nombre": form.nombre.data,
-            "descripcion": form.descripcion.data,
-            "disponible": True
-        }
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
 
-        servicios.append(nuevo_servicio)
+        cursor.execute("""
+            INSERT INTO productos
+            (nombre, descripcion, precio, cantidad)
+            VALUES (?, ?, ?, ?)
+        """, (
+            form.nombre.data,
+            form.descripcion.data,
+            form.precio.data,
+            form.cantidad.data
+        ))
 
-        print("Formulario enviado correctamente")
+        conn.commit()
+        conn.close()
+
+        print("Producto registrado correctamente")
         print("Nombre:", form.nombre.data)
         print("Descripción:", form.descripcion.data)
         print("Precio:", form.precio.data)
         print("Cantidad:", form.cantidad.data)
 
-        form.nombre.data = ""
-        form.descripcion.data = ""
-        form.precio.data = ""
-        form.cantidad.data = ""
+    # Consultar productos guardados
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, nombre, descripcion, precio, cantidad
+        FROM productos
+        ORDER BY id DESC
+    """)
+
+    productos = cursor.fetchall()
+
+    conn.close()
 
     return render_template(
         "productos.html",
-        servicios=servicios,
+        productos=productos,
         form=form
     )
 
 
+# Clientes
 @app.route("/clientes", methods=["GET", "POST"])
 def clientes():
 
@@ -105,10 +144,6 @@ def clientes():
         print("Teléfono:", form.telefono.data)
         print("Comunidad:", form.comunidad.data)
 
-        form.nombre.data = ""
-        form.telefono.data = ""
-        form.comunidad.data = ""
-
     return render_template(
         "clientes.html",
         clientes=clientes,
@@ -116,6 +151,7 @@ def clientes():
     )
 
 
+# Proveedores
 @app.route("/proveedores", methods=["GET", "POST"])
 def proveedores():
 
@@ -154,16 +190,14 @@ def proveedores():
         print("Descripción:", form.descripcion.data)
         print("Estado:", form.estado.data)
 
-        form.nombre.data = ""
-        form.descripcion.data = ""
-        form.estado.data = ""
-
     return render_template(
         "proveedores.html",
         proveedores=proveedores,
         form=form
     )
 
+
+# Facturación
 @app.route("/facturacion", methods=["GET", "POST"])
 def facturacion():
 
@@ -207,11 +241,6 @@ def facturacion():
         print("Servicio:", form.servicio.data)
         print("Valor:", form.valor.data)
 
-        form.numero.data = ""
-        form.cliente.data = ""
-        form.servicio.data = ""
-        form.valor.data = ""
-
     return render_template(
         "facturacion.html",
         facturas=facturas,
@@ -219,5 +248,9 @@ def facturacion():
     )
 
 
+# Iniciar aplicación
 if __name__ == "__main__":
+
+    crear_base_datos()
+
     app.run(debug=True)
