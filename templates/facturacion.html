@@ -1,61 +1,66 @@
 {% extends "base.html" %}
 
-{% block title %}Facturación - RutaMóvil Rural{% endblock %}
+{% block title %}Formulario de Facturación - RutaMóvil Rural{% endblock %}
 
 {% block content %}
 
 <div class="container">
 
     <h1 class="text-success mb-4">
-        Facturación
+        Registrar factura
     </h1>
 
-    <div class="alert alert-success">
-        Registro de facturas de ejemplo de los servicios de transporte.
-    </div>
+    <form method="POST">
 
-    <table class="table table-bordered table-striped">
+        {{ form.hidden_tag() }}
 
-        <thead class="table-success">
+        <div class="mb-3">
+            {{ form.numero.label(class="form-label") }}
+            {{ form.numero(class="form-control") }}
 
-            <tr>
-                <th>N.º Factura</th>
-                <th>Cliente</th>
-                <th>Servicio</th>
-                <th>Valor</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for factura in facturas %}
-
-            <tr>
-
-                <td>
-                    {{ factura.numero }}
-                </td>
-
-                <td>
-                    {{ factura.cliente }}
-                </td>
-
-                <td>
-                    {{ factura.servicio }}
-                </td>
-
-                <td>
-                    ${{ "%.2f"|format(factura.valor) }}
-                </td>
-
-            </tr>
-
+            {% for error in form.numero.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
             {% endfor %}
+        </div>
 
-        </tbody>
+        <div class="mb-3">
+            {{ form.cliente.label(class="form-label") }}
+            {{ form.cliente(class="form-control") }}
 
-    </table>
+            {% for error in form.cliente.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.servicio.label(class="form-label") }}
+            {{ form.servicio(class="form-control") }}
+
+            {% for error in form.servicio.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.valor.label(class="form-label") }}
+            {{ form.valor(class="form-control") }}
+
+            {% for error in form.valor.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+
+    </form>
 
 </div>
 

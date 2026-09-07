@@ -1,6 +1,9 @@
 from flask import Flask, render_template
+from forms import ProductoForm, ClienteForm, ProveedorForm, FacturacionForm
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "clave-secreta"
 
 
 @app.route("/")
@@ -13,8 +16,10 @@ def inicio():
     )
 
 
-@app.route("/productos")
+@app.route("/productos", methods=["GET", "POST"])
 def productos():
+
+    form = ProductoForm()
 
     servicios = [
         {
@@ -34,14 +39,38 @@ def productos():
         }
     ]
 
+    if form.validate_on_submit():
+
+        nuevo_servicio = {
+            "nombre": form.nombre.data,
+            "descripcion": form.descripcion.data,
+            "disponible": True
+        }
+
+        servicios.append(nuevo_servicio)
+
+        print("Formulario enviado correctamente")
+        print("Nombre:", form.nombre.data)
+        print("Descripción:", form.descripcion.data)
+        print("Precio:", form.precio.data)
+        print("Cantidad:", form.cantidad.data)
+
+        form.nombre.data = ""
+        form.descripcion.data = ""
+        form.precio.data = ""
+        form.cantidad.data = ""
+
     return render_template(
         "productos.html",
-        servicios=servicios
+        servicios=servicios,
+        form=form
     )
 
 
-@app.route("/clientes")
+@app.route("/clientes", methods=["GET", "POST"])
 def clientes():
+
+    form = ClienteForm()
 
     clientes = [
         {
@@ -61,14 +90,36 @@ def clientes():
         }
     ]
 
+    if form.validate_on_submit():
+
+        nuevo_cliente = {
+            "nombre": form.nombre.data,
+            "telefono": form.telefono.data,
+            "comunidad": form.comunidad.data
+        }
+
+        clientes.append(nuevo_cliente)
+
+        print("Cliente registrado correctamente")
+        print("Nombre:", form.nombre.data)
+        print("Teléfono:", form.telefono.data)
+        print("Comunidad:", form.comunidad.data)
+
+        form.nombre.data = ""
+        form.telefono.data = ""
+        form.comunidad.data = ""
+
     return render_template(
         "clientes.html",
-        clientes=clientes
+        clientes=clientes,
+        form=form
     )
 
 
-@app.route("/proveedores")
+@app.route("/proveedores", methods=["GET", "POST"])
 def proveedores():
+
+    form = ProveedorForm()
 
     proveedores = [
         {
@@ -88,13 +139,35 @@ def proveedores():
         }
     ]
 
+    if form.validate_on_submit():
+
+        nuevo_proveedor = {
+            "nombre": form.nombre.data,
+            "descripcion": form.descripcion.data,
+            "estado": form.estado.data
+        }
+
+        proveedores.append(nuevo_proveedor)
+
+        print("Proveedor registrado correctamente")
+        print("Nombre:", form.nombre.data)
+        print("Descripción:", form.descripcion.data)
+        print("Estado:", form.estado.data)
+
+        form.nombre.data = ""
+        form.descripcion.data = ""
+        form.estado.data = ""
+
     return render_template(
         "proveedores.html",
-        proveedores=proveedores
+        proveedores=proveedores,
+        form=form
     )
 
-@app.route("/facturacion")
+@app.route("/facturacion", methods=["GET", "POST"])
 def facturacion():
+
+    form = FacturacionForm()
 
     facturas = [
         {
@@ -117,9 +190,34 @@ def facturacion():
         }
     ]
 
+    if form.validate_on_submit():
+
+        nueva_factura = {
+            "numero": form.numero.data,
+            "cliente": form.cliente.data,
+            "servicio": form.servicio.data,
+            "valor": form.valor.data
+        }
+
+        facturas.append(nueva_factura)
+
+        print("Factura registrada correctamente")
+        print("Número:", form.numero.data)
+        print("Cliente:", form.cliente.data)
+        print("Servicio:", form.servicio.data)
+        print("Valor:", form.valor.data)
+
+        form.numero.data = ""
+        form.cliente.data = ""
+        form.servicio.data = ""
+        form.valor.data = ""
+
     return render_template(
         "facturacion.html",
-        facturas=facturas
+        facturas=facturas,
+        form=form
     )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

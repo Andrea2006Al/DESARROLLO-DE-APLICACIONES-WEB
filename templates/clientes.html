@@ -1,56 +1,55 @@
 {% extends "base.html" %}
 
-{% block title %}Clientes - RutaMóvil Rural{% endblock %}
+{% block title %}Formulario de Cliente - RutaMóvil Rural{% endblock %}
 
 {% block content %}
 
 <div class="container">
 
     <h1 class="text-success mb-4">
-        Clientes
+        Registrar cliente
     </h1>
 
-    <div class="alert alert-info">
-        Registro de usuarios de RutaMóvil Rural.
-    </div>
+    <form method="POST">
 
-    <table class="table table-bordered table-striped">
+        {{ form.hidden_tag() }}
 
-        <thead class="table-success">
+        <div class="mb-3">
+            {{ form.nombre.label(class="form-label") }}
+            {{ form.nombre(class="form-control") }}
 
-            <tr>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Comunidad</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for cliente in clientes %}
-
-            <tr>
-
-                <td>
-                    {{ cliente.nombre }}
-                </td>
-
-                <td>
-                    {{ cliente.telefono }}
-                </td>
-
-                <td>
-                    {{ cliente.comunidad }}
-                </td>
-
-            </tr>
-
+            {% for error in form.nombre.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
             {% endfor %}
+        </div>
 
-        </tbody>
+        <div class="mb-3">
+            {{ form.telefono.label(class="form-label") }}
+            {{ form.telefono(class="form-control") }}
 
-    </table>
+            {% for error in form.telefono.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.comunidad.label(class="form-label") }}
+            {{ form.comunidad(class="form-control") }}
+
+            {% for error in form.comunidad.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+
+    </form>
 
 </div>
 

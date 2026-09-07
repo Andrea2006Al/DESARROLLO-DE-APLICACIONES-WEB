@@ -10,6 +10,52 @@
         Proveedores de transporte
     </h1>
 
+    <!-- Formulario de proveedor -->
+
+    <form method="POST" class="mb-5">
+
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.nombre.label(class="form-label") }}
+            {{ form.nombre(class="form-control") }}
+
+            {% for error in form.nombre.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.descripcion.label(class="form-label") }}
+            {{ form.descripcion(class="form-control") }}
+
+            {% for error in form.descripcion.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.estado.label(class="form-label") }}
+            {{ form.estado(class="form-control") }}
+
+            {% for error in form.estado.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+
+    </form>
+
+
+    <!-- Lista de proveedores -->
+
     <div class="row">
 
         {% for proveedor in proveedores %}
