@@ -1,6 +1,11 @@
 CREATE DATABASE IF NOT EXISTS proyecto_integrador;
 
 USE proyecto_integrador;
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS proveedores (
     id_proveedor INT AUTO_INCREMENT PRIMARY KEY,

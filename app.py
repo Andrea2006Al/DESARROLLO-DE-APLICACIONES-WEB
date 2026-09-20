@@ -1,17 +1,49 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 
-from conexion import obtener_conexion
-from forms import ProductoForm, ClienteForm, ProveedorForm, FacturacionForm
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
+from conexion import obtener_conexion
+from forms import ProductoForm, ClienteForm, ProveedorForm, FacturacionForm, UsuarioForm, LoginForm
+from models import Usuario
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "clave-secreta"
 
-app.config["SECRET_KEY"] = "clave-secreta"  
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
+@login_manager.user_loader
+def load_user(user_id):
+
+    conn = obtener_conexion()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id, usuario, password
+        FROM usuarios
+        WHERE id = %s
+    """, (user_id,))
+
+    datos = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if datos:
+        return Usuario(
+            datos["id"],
+            datos["usuario"],
+            datos["password"]
+        )
+
+    return None
 
 # Página de inicio
 @app.route("/")
+@login_required
 def inicio():
 
     nombre_sistema = "Ruta Móvil"
@@ -21,9 +53,90 @@ def inicio():
         nombre_sistema=nombre_sistema
     )
 
+# Registro de usuarios
+@app.route("/registro", methods=["GET", "POST"])
+def registro():
 
+    form = UsuarioForm()
+
+    if form.validate_on_submit():
+
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+
+        # Proteger la contraseña antes de guardarla
+        password_hash = generate_password_hash(form.password.data)
+
+        cursor.execute("""
+            INSERT INTO usuarios (usuario, password)
+            VALUES (%s, %s)
+        """, (
+            form.usuario.data,
+            password_hash
+        ))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for("login"))
+
+    return render_template(
+        "registro.html",
+        form=form
+    )
+
+# Login de usuarios
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    form = LoginForm()
+    mensaje = None
+
+    if form.validate_on_submit():
+
+        conn = obtener_conexion()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT id, usuario, password
+            FROM usuarios
+            WHERE usuario = %s
+        """, (form.usuario.data,))
+
+        datos = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if datos and check_password_hash(
+            datos["password"],
+            form.password.data
+        ):
+
+            usuario = Usuario(
+                datos["id"],
+                datos["usuario"],
+                datos["password"]
+            )
+
+            login_user(usuario)
+
+            return redirect(url_for("productos"))
+
+        mensaje = "Usuario o contraseña incorrectos."
+
+    return render_template(
+        "login.html",
+        form=form,
+        mensaje=mensaje
+    )
+
+        
 # Productos
 @app.route("/productos", methods=["GET", "POST"])
+@login_required
 def productos():
 
     form = ProductoForm()
@@ -74,6 +187,7 @@ def productos():
 
     # Editar producto
 @app.route("/productos/editar/<int:id_producto>", methods=["GET", "POST"])
+@login_required
 def editar_producto(id_producto):
 
     form = ProductoForm()
@@ -134,6 +248,7 @@ def editar_producto(id_producto):
     )
     # Eliminar producto
 @app.route("/productos/eliminar/<int:id_producto>")
+@login_required
 def eliminar_producto(id_producto):
 
     conn = obtener_conexion()
@@ -153,6 +268,7 @@ def eliminar_producto(id_producto):
 
 # Clientes
 @app.route("/clientes", methods=["GET", "POST"])
+@login_required
 def clientes():
 
     form = ClienteForm()
@@ -204,6 +320,7 @@ def clientes():
 
 # Proveedores
 @app.route("/proveedores", methods=["GET", "POST"])
+@login_required
 def proveedores():
 
     form = ProveedorForm()
@@ -252,6 +369,7 @@ def proveedores():
     )
 # Facturación
 @app.route("/facturacion", methods=["GET", "POST"])
+@login_required
 def facturacion():
 
     form = FacturacionForm()
@@ -326,6 +444,15 @@ def facturacion():
     form=form,
     mensaje=mensaje if "mensaje" in locals() else None
 )   
+
+# Cerrar sesión
+@app.route("/logout")
+@login_required
+def logout():
+
+    logout_user()
+
+    return redirect(url_for("login"))
 
 # Iniciar aplicación
 if __name__ == "__main__":
