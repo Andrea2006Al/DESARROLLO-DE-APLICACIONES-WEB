@@ -10,13 +10,18 @@ class ClienteForm(FlaskForm):
         validators=[DataRequired()]
     )
 
+    cedula = StringField(
+        "Cédula",
+        validators=[DataRequired()]
+    )
+
     telefono = StringField(
         "Teléfono",
         validators=[DataRequired()]
     )
 
-    comunidad = StringField(
-        "Comunidad",
+    correo = StringField(
+        "Correo",
         validators=[DataRequired()]
     )
 

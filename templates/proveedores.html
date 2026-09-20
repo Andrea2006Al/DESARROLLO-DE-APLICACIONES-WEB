@@ -28,10 +28,10 @@
         </div>
 
         <div class="mb-3">
-            {{ form.descripcion.label(class="form-label") }}
-            {{ form.descripcion(class="form-control") }}
+            {{ form.telefono.label(class="form-label") }}
+            {{ form.telefono(class="form-control") }}
 
-            {% for error in form.descripcion.errors %}
+            {% for error in form.telefono.errors %}
                 <div class="text-danger">
                     {{ error }}
                 </div>
@@ -39,10 +39,10 @@
         </div>
 
         <div class="mb-3">
-            {{ form.estado.label(class="form-label") }}
-            {{ form.estado(class="form-control") }}
+            {{ form.correo.label(class="form-label") }}
+            {{ form.correo(class="form-control") }}
 
-            {% for error in form.estado.errors %}
+            {% for error in form.correo.errors %}
                 <div class="text-danger">
                     {{ error }}
                 </div>
@@ -56,45 +56,51 @@
 
     <!-- Lista de proveedores -->
 
-    <div class="row">
+    <h2 class="mb-3">Proveedores registrados</h2>
 
-        {% for proveedor in proveedores %}
+    <div class="table-responsive">
 
-        <div class="col-md-6 mb-4">
+        <table class="table table-bordered table-striped">
 
-            <div class="card h-100 shadow-sm">
+            <thead class="table-success">
 
-                <div class="card-body">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                </tr>
 
-                    <h5 class="card-title">
-                        {{ proveedor.nombre }}
-                    </h5>
+            </thead>
 
-                    <p class="card-text">
-                        {{ proveedor.descripcion }}
-                    </p>
+            <tbody>
 
-                    {% if proveedor.estado == "Activo" %}
+                {% for proveedor in proveedores %}
 
-                        <span class="badge bg-primary">
-                            Proveedor activo
-                        </span>
+                <tr>
 
-                    {% else %}
+                    <td>{{ proveedor["id_proveedor"] }}</td>
+                    <td>{{ proveedor["nombre"] }}</td>
+                    <td>{{ proveedor["telefono"] }}</td>
+                    <td>{{ proveedor["correo"] }}</td>
 
-                        <span class="badge bg-secondary">
-                            Proveedor inactivo
-                        </span>
+                </tr>
 
-                    {% endif %}
+                {% else %}
 
-                </div>
+                <tr>
 
-            </div>
+                    <td colspan="4" class="text-center">
+                        No hay proveedores registrados.
+                    </td>
 
-        </div>
+                </tr>
 
-        {% endfor %}
+                {% endfor %}
+
+            </tbody>
+
+        </table>
 
     </div>
 

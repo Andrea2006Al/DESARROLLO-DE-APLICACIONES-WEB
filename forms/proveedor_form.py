@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -10,13 +10,13 @@ class ProveedorForm(FlaskForm):
         validators=[DataRequired()]
     )
 
-    descripcion = TextAreaField(
-        "Descripción",
+    telefono = StringField(
+        "Teléfono",
         validators=[DataRequired()]
     )
 
-    estado = StringField(
-        "Estado",
+    correo = StringField(
+        "Correo",
         validators=[DataRequired()]
     )
 

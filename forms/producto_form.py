@@ -1,17 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, FloatField, IntegerField, SubmitField
+from wtforms import StringField, FloatField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, NumberRange
 
 
 class ProductoForm(FlaskForm):
 
     nombre = StringField(
-        "Nombre del producto",
-        validators=[DataRequired()]
-    )
-
-    descripcion = TextAreaField(
-        "Descripción",
+        "Nombre del servicio",
         validators=[DataRequired()]
     )
 
@@ -24,7 +19,7 @@ class ProductoForm(FlaskForm):
     )
 
     cantidad = IntegerField(
-        "Cantidad",
+        "Stock",
         validators=[
             DataRequired(),
             NumberRange(min=1)
