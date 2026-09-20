@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Panel principal - RutaMóvil Rural{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="text-success mb-4">
+        Panel principal
+    </h1>
+
+    <div class="alert alert-success">
+        Bienvenido, <strong>{{ current_user.usuario }}</strong>.
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Servicios</h5>
+                    <p class="card-text">
+                        Gestionar los servicios de transporte.
+                    </p>
+                    <a href="{{ url_for('productos') }}"
+                       class="btn btn-success">
+                        Ver servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text">
+                        Administrar los clientes registrados.
+                    </p>
+                    <a href="{{ url_for('clientes') }}"
+                       class="btn btn-success">
+                        Ver clientes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Proveedores</h5>
+                    <p class="card-text">
+                        Administrar los proveedores.
+                    </p>
+                    <a href="{{ url_for('proveedores') }}"
+                       class="btn btn-success">
+                        Ver proveedores
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Facturación</h5>
+                    <p class="card-text">
+                        Gestionar la facturación del sistema.
+                    </p>
+                    <a href="{{ url_for('facturacion') }}"
+                       class="btn btn-success">
+                        Ver facturación
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

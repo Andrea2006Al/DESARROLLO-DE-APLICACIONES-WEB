@@ -53,6 +53,13 @@ def inicio():
         nombre_sistema=nombre_sistema
     )
 
+    # Panel principal
+@app.route("/dashboard")
+@login_required
+def dashboard():
+
+    return render_template("dashboard.html")
+
 # Registro de usuarios
 @app.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -123,7 +130,7 @@ def login():
 
             login_user(usuario)
 
-            return redirect(url_for("productos"))
+            return redirect(url_for("dashboard"))
 
         mensaje = "Usuario o contraseña incorrectos."
 
